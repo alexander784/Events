@@ -1,5 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from models import Event,Category
+from django.contrib import messages
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -57,3 +60,29 @@ def create_category(request):
         Category.objects.create(name=name)
         return redirect('category_list')
     return render(request, 'Event/create_category.html')
+
+
+def delete_category(request, category_id):
+    category = Category.objects.get(pk=category_id)
+    if category.event_set.exists():
+        messages.error(
+            request, "You cannot delete this category as it contains events.")
+    else:
+        category.delete()
+        messages.success(request, "Category deleted successfully.")
+    return redirect('category_list')
+
+def category_events(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    events = category.event_set.all()
+    return render(request, 'Event/category_events.html', {'category': category, 'events': events})
+
+def event_chart(request):
+    categories = Category.objects.all()
+    pending_counts = {}
+    for category in categories:
+        pending_counts[category.name] = Event.objects.filter(
+            category=category,
+            start_date__gt=timezone.now()
+        ).count()
+    return render(request, 'Event/event_chart.html', {'pending_counts': pending_counts})
