@@ -4,7 +4,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    
+
 class Event(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
@@ -14,3 +14,6 @@ class Event(models.Model):
     location = models.CharField(max_length=255, default='')
     organizer = models.CharField(max_length=100, default='')
 
+
+def __str__(self):
+    return self.name
