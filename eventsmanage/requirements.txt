@@ -4,3 +4,5 @@ sqlparse==0.5.3
 typing_extensions==4.13.0
 psycopg[binary]==3.1.12
 djangorestframework
+drf_yasg
+
