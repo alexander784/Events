@@ -50,6 +50,7 @@ Using Docker: </Br>
 `docker-compose down`:</br>
 
 ## API Endpoints
+![alt text](<Screenshot from 2025-04-16 09-20-58.png>)
 
 | Endpoint                          | Method | Description                  |
 |--------------------------------   |--------|------------------------------|
@@ -57,10 +58,6 @@ Using Docker: </Br>
 | `/auth/login/`                    | POST   | create a JWT by passing a valid user in the post request to this endpoint  |
 | `/auth/logout/`                   | GET    | Logout a user        |
 | `/token/refresh/`                 | POST   | generate a new JWT once the lifetime of the previously generated one expires   |
-
-
-
-
 | `/events/categories/delete/<id>/` | DELETE | Delete a category            |
 | `/events/categories/<id>/events/` | GET    | List events in a category    |
 | `/events/events/chart/`           | GET    | Get pending event counts     |
